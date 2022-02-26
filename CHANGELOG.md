@@ -1,3 +1,17 @@
+# [17.1.0](https://github.com/freddy38510/vue-loader/compare/v17.0.0...v17.1.0) (2022-02-26)
+
+
+### Bug Fixes
+
+* change vue-loader references to new package name ([7cde9b7](https://github.com/freddy38510/vue-loader/commit/7cde9b7344c6b270231e9b170c397ad7a6e48e48))
+
+
+### Features
+
+* add SSR critical CSS collection ([d71c792](https://github.com/freddy38510/vue-loader/commit/d71c7925a3b35f658d461523cbb2b5be2aac9622))
+
+
+
 # [17.0.0](https://github.com/vuejs/vue-loader/compare/v16.8.3...v17.0.0) (2021-12-12)
 
 
