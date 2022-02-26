@@ -2,8 +2,8 @@ import * as qs from 'querystring'
 import type { VueLoaderOptions } from './'
 import type { RuleSetRule, Compiler, Plugin } from 'webpack'
 
-const id = 'vue-loader-plugin'
-const NS = 'vue-loader'
+const id = '@freddy38510/vue-loader-plugin'
+const NS = '@freddy38510/vue-loader'
 
 const NormalModule = require('webpack/lib/NormalModule')
 const BasicEffectRulePlugin = require('webpack/lib/rules/BasicEffectRulePlugin')
@@ -148,7 +148,9 @@ class VueLoaderPlugin implements Plugin {
     // get vue-loader options
     const vueLoaderUseIndex = vueUse.findIndex((u) => {
       // FIXME: this code logic is incorrect when project paths starts with `vue-loader-something`
-      return /^vue-loader|(\/|\\|@)vue-loader/.test(u.loader)
+      return /^@freddy38510\/vue-loader|(\/|\\|@)@freddy38510\/vue-loader/.test(
+        u.loader
+      )
     })
 
     if (vueLoaderUseIndex < 0) {

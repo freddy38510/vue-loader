@@ -20,14 +20,14 @@ const baseConfig: webpack.Configuration = {
   },
   resolveLoader: {
     alias: {
-      'vue-loader': require.resolve('../dist'),
+      '@freddy38510/vue-loader': require.resolve('../dist'),
     },
   },
   module: {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
+        loader: '@freddy38510/vue-loader',
       },
       {
         test: /\.css$/,

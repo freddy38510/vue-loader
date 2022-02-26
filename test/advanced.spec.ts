@@ -10,7 +10,7 @@ test('support chaining with other loaders', async () => {
     modify: (config) => {
       config!.module!.rules[0] = {
         test: /\.vue$/,
-        use: ['vue-loader', require.resolve('./mock-loaders/js')],
+        use: ['@freddy38510/vue-loader', require.resolve('./mock-loaders/js')],
       }
     },
   })
@@ -24,7 +24,10 @@ test.skip('inherit queries on files', async () => {
     modify: (config) => {
       config!.module!.rules[0] = {
         test: /\.vue$/,
-        use: ['vue-loader', require.resolve('./mock-loaders/query')],
+        use: [
+          '@freddy38510/vue-loader',
+          require.resolve('./mock-loaders/query'),
+        ],
       }
     },
   })
@@ -92,7 +95,7 @@ test('extract CSS', async () => {
       config.module.rules = [
         {
           test: /\.vue$/,
-          use: 'vue-loader',
+          use: '@freddy38510/vue-loader',
         },
         {
           test: /\.css$/,
@@ -126,7 +129,7 @@ test('extract CSS with code spliting', async () => {
       config.module.rules = [
         {
           test: /\.vue$/,
-          use: 'vue-loader',
+          use: '@freddy38510/vue-loader',
         },
         {
           test: /\.css$/,
@@ -153,7 +156,7 @@ test('support rules with oneOf', async () => {
       entry,
       modify: (config: any) => {
         config!.module!.rules = [
-          { test: /\.vue$/, loader: 'vue-loader' },
+          { test: /\.vue$/, loader: '@freddy38510/vue-loader' },
           {
             test: /\.css$/,
             use: 'style-loader',

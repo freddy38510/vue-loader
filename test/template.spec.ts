@@ -111,7 +111,7 @@ test('should allow process custom file', async () => {
       rules: [
         {
           test: /\.svg$/,
-          loader: 'vue-loader',
+          loader: '@freddy38510/vue-loader',
         },
       ],
     },

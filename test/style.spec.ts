@@ -109,7 +109,7 @@ test('CSS Modules', async () => {
         config!.module!.rules = [
           {
             test: /\.vue$/,
-            loader: 'vue-loader',
+            loader: '@freddy38510/vue-loader',
           },
           {
             test: /\.css$/,
@@ -178,7 +178,7 @@ test('CSS Modules Extend', async () => {
       config!.module!.rules = [
         {
           test: /\.vue$/,
-          loader: 'vue-loader',
+          loader: '@freddy38510/vue-loader',
         },
         {
           test: /\.css$/,

@@ -34,7 +34,7 @@ test('vue rule with include', async () => {
       config!.module!.rules[0] = {
         test: /\.vue$/,
         include: /fixtures/,
-        loader: 'vue-loader',
+        loader: '@freddy38510/vue-loader',
       }
     },
   })
@@ -49,7 +49,7 @@ test('test-less oneOf rules', async () => {
       config!.module!.rules = [
         {
           test: /\.vue$/,
-          loader: 'vue-loader',
+          loader: '@freddy38510/vue-loader',
         },
         {
           oneOf: [
@@ -75,7 +75,7 @@ test('normalize multiple use + options', async () => {
         test: /\.vue$/,
         use: [
           {
-            loader: 'vue-loader',
+            loader: '@freddy38510/vue-loader',
             options: {},
           },
         ],

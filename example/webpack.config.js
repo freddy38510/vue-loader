@@ -52,7 +52,7 @@ module.exports = (env = {}) => {
         rules: [
           {
             test: /\.vue$/,
-            loader: 'vue-loader',
+            loader: '@freddy38510/vue-loader',
             options: {
               reactivityTransform: true,
             },
@@ -153,7 +153,7 @@ module.exports = (env = {}) => {
       },
       resolveLoader: {
         alias: {
-          'vue-loader': require.resolve('../'),
+          '@freddy38510/vue-loader': require.resolve('../'),
         },
       },
     }
