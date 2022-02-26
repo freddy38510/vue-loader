@@ -183,8 +183,10 @@ export default function loader(
 
   // styles
   let stylesCode = ``
+  let styleInjectionCode = ``
   let hasCSSModules = false
   const nonWhitespaceRE = /\S+/
+
   if (descriptor.styles.length) {
     descriptor.styles
       .filter((style) => style.src || nonWhitespaceRE.test(style.content))
@@ -197,6 +199,7 @@ export default function loader(
         const inlineQuery = asCustomElement ? `&inline` : ``
         const query = `?vue&type=style&index=${i}${idQuery}${inlineQuery}${attrsQuery}${resourceQuery}`
         const styleRequest = stringifyRequest(src + query)
+
         if (style.module) {
           if (asCustomElement) {
             loaderContext.emitError(
@@ -216,14 +219,26 @@ export default function loader(
             needsHotReload
           )
         } else {
-          if (asCustomElement) {
-            stylesCode += `\nimport _style_${i} from ${styleRequest}`
-          } else {
-            stylesCode += `\nimport ${styleRequest}`
+          if (!isServer) {
+            if (asCustomElement) {
+              stylesCode += `\nimport _style_${i} from ${styleRequest}`
+            } else {
+              stylesCode += `\nimport ${styleRequest}`
+            }
           }
         }
-        // TODO SSR critical CSS collection
+
+        if (isServer) {
+          styleInjectionCode +=
+            `\nvar style${i} = require(${styleRequest})\n` +
+            `if (style${i}.__inject__) style${i}.__inject__(context)\n`
+        }
       })
+
+    if (isServer) {
+      stylesCode += `\nfunction injectStyles (context) { ${styleInjectionCode} }`
+    }
+
     if (asCustomElement) {
       propsToAttach.push([
         `styles`,
@@ -274,6 +289,25 @@ export default function loader(
           )
         })
         .join(`\n`) + `\n`
+  }
+
+  /* Style injection in beforeCreate */
+  if (/injectStyles/.test(stylesCode)) {
+    code += webpack.Template.asString([
+      '\n',
+      `const _useSSRContext_ = require('vue').useSSRContext`,
+      'const _oldBeforeCreate_ = script.beforeCreate',
+      '',
+      'function _beforeCreate_() {',
+      webpack.Template.indent([
+        'const ssrContext = _useSSRContext_()',
+        'injectStyles(ssrContext)',
+        `if (typeof _oldBeforeCreate_ === 'function') { _oldBeforeCreate_() }`,
+      ]),
+      '}',
+    ])
+
+    propsToAttach.push(['beforeCreate', '_beforeCreate_'])
   }
 
   // finalize
