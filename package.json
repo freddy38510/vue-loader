@@ -3,6 +3,7 @@
   "version": "17.1.0",
   "license": "MIT",
   "author": "Evan You",
+  "repository": "@freddy38510/vue-loader",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
