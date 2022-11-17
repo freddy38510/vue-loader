@@ -97,5 +97,8 @@
     "webpack-merge": "5.1.4",
     "webpack5": "npm:webpack@5.75.0",
     "yorkie": "2.0.0"
+  },
+  "resolutions": {
+    "@types/tapable": "1.0.0"
   }
 }
