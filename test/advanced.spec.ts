@@ -69,7 +69,7 @@ test.skip('source map', async () => {
     devtool: 'source-map',
   })
   const map = mfs.readFileSync('/test.build.js.map', 'utf-8')
-  const smc = new SourceMapConsumer(JSON.parse(map as string))
+  const smc = await new SourceMapConsumer(JSON.parse(map as string))
   let line = 0
   let col = 0
   const targetRE = /^\s+msg: 'Hello from Component A!'/
@@ -84,7 +84,7 @@ test.skip('source map', async () => {
     line: line,
     column: col,
   })
-  expect(pos.source.indexOf('basic.vue') > -1)
+  expect(pos.source?.indexOf('basic.vue') || -1 > -1)
   expect(pos.line).toBe(9)
 })
 
