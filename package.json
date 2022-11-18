@@ -63,7 +63,7 @@
     "babel-loader": "8.3.0",
     "cache-loader": "4.1.0",
     "conventional-changelog-cli": "2.2.2",
-    "css-loader": "4.3.0",
+    "css-loader": "5.2.7",
     "file-loader": "6.2.0",
     "html-webpack-plugin": "4.5.2",
     "html-webpack-plugin-v5": "npm:html-webpack-plugin@5.5.0",
