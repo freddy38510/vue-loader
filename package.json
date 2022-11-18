@@ -68,7 +68,7 @@
     "html-webpack-plugin": "4.5.0",
     "html-webpack-plugin-v5": "npm:html-webpack-plugin@5.5.0",
     "jest": "26.4.2",
-    "jsdom": "16.4.0",
+    "jsdom": "16.5.0",
     "lint-staged": "10.3.0",
     "markdown-loader": "6.0.0",
     "memfs": "3.2.0",
