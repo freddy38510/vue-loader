@@ -73,7 +73,7 @@
     "markdown-loader": "6.0.0",
     "memfs": "3.4.11",
     "mini-css-extract-plugin": "1.6.2",
-    "normalize-newline": "3.0.0",
+    "normalize-newline": "4.1.0",
     "null-loader": "4.0.1",
     "postcss-loader": "4.3.0",
     "prettier": "2.7.1",
