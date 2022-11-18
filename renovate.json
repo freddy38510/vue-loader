@@ -7,6 +7,10 @@
     {
       "matchPackageNames": ["chalk"],
       "allowedVersions": "<5"
+    },
+    {
+      "matchPackageNames": ["ts-loader"],
+      "allowedVersions": "<9"
     }
   ]
 }
