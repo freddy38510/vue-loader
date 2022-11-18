@@ -5,12 +5,26 @@
   "rangeStrategy": "pin",
   "packageRules": [
     {
-      "matchPackageNames": ["chalk"],
+      "matchPackageNames": [
+        "chalk",
+        "webpack",
+        "@types/webpack",
+        "webpack-cli",
+        "html-webpack-plugin"
+      ],
       "allowedVersions": "<5"
     },
     {
       "matchPackageNames": ["ts-loader"],
       "allowedVersions": "<9"
+    },
+    {
+      "matchPackageNames": ["mini-css-extract-plugin"],
+      "allowedVersions": "<2"
+    },
+    {
+      "matchPackageNames": ["style-loader"],
+      "allowedVersions": "<3"
     }
   ]
 }
