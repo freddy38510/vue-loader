@@ -147,9 +147,18 @@ module.exports = (env = {}) => {
         minimize,
       },
       devServer: {
-        stats: 'minimal',
-        contentBase: __dirname,
-        overlay: true,
+        hot: true,
+        client: {
+          overlay: true,
+        },
+        devMiddleware: {
+          index: 'index.html',
+          serverSideRender: true,
+        },
+        static: {
+          directory: __dirname,
+          publicPath: '/',
+        },
       },
       resolveLoader: {
         alias: {
