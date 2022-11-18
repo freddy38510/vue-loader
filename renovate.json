@@ -10,7 +10,9 @@
         "webpack",
         "@types/webpack",
         "webpack-cli",
-        "html-webpack-plugin"
+        "html-webpack-plugin",
+        "stylus-loader",
+        "postcss-loader"
       ],
       "allowedVersions": "<5"
     },
@@ -19,12 +21,24 @@
       "allowedVersions": "<9"
     },
     {
-      "matchPackageNames": ["mini-css-extract-plugin"],
+      "matchPackageNames": [
+        "mini-css-extract-plugin",
+        "@types/mini-css-extract-plugin",
+        "@intlify/vue-i18n-loader"
+      ],
       "allowedVersions": "<2"
     },
     {
       "matchPackageNames": ["style-loader"],
       "allowedVersions": "<3"
+    },
+    {
+      "matchPackageNames": ["markdown-loader"],
+      "allowedVersions": "<8"
+    },
+    {
+      "matchPackageNames": ["css-loader"],
+      "allowedVersions": "<6"
     }
   ]
 }
