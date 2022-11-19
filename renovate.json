@@ -23,10 +23,13 @@
     {
       "matchPackageNames": [
         "mini-css-extract-plugin",
-        "@types/mini-css-extract-plugin",
         "@intlify/vue-i18n-loader"
       ],
       "allowedVersions": "<2"
+    },
+    {
+      "matchPackageNames": ["@types/mini-css-extract-plugin"],
+      "allowedVersions": "1.4.0"
     },
     {
       "matchPackageNames": ["style-loader"],
