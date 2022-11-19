@@ -97,5 +97,8 @@
     "webpack-merge": "5.8.0",
     "webpack5": "npm:webpack@5.75.0",
     "yorkie": "2.0.0"
+  },
+  "resolutions": {
+    "pretty-error": "^4.0.0"
   }
 }
