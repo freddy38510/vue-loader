@@ -73,9 +73,6 @@ module.exports = (env = {}) => {
             use: [
               {
                 loader: MiniCssExtractPlugin.loader,
-                options: {
-                  hmr: !isProd,
-                },
               },
               'css-loader',
             ],
