@@ -1,3 +1,16 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+### [17.1.1](https://github.com/freddy38510/vue-loader/compare/v17.1.0...v17.1.1) (2022-11-19)
+
+
+### Bug Fixes
+
+* add `vue` and `@vue/compiler-sfc` to optional peerDependencies ([e12884b](https://github.com/freddy38510/vue-loader/commit/e12884bd6e3c359dcd3b4b112be98f13220417ef)), closes [#1944](https://github.com/freddy38510/vue-loader/issues/1944)
+* **deps:** update dependency loader-utils to v2.0.4 [security] ([#30](https://github.com/freddy38510/vue-loader/issues/30)) ([a7a8481](https://github.com/freddy38510/vue-loader/commit/a7a84816356d454875dbca4efbb5a6459eeff46e))
+* merge custom queries rather than appending ([#1911](https://github.com/freddy38510/vue-loader/issues/1911)) ([dccffeb](https://github.com/freddy38510/vue-loader/commit/dccffeb38d8cebfc964da2cb3602a110d6c14f9b))
+
 # [17.1.0](https://github.com/freddy38510/vue-loader/compare/v17.0.0...v17.1.0) (2022-02-26)
 
 
@@ -402,6 +415,3 @@
 * properly map template position ([ee26c3a](https://github.com/vuejs/vue-loader/commit/ee26c3a10df6fb93556487362c49f57a52f0e2be))
 * scopeId support ([d9f932e](https://github.com/vuejs/vue-loader/commit/d9f932ee14f34f9954481a95a323f2a1674c16ee))
 * support custom blocks ([f238f59](https://github.com/vuejs/vue-loader/commit/f238f5913108c66e3a69800d9e1c771ee56d5c46))
-
-
-
