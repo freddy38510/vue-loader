@@ -16,8 +16,8 @@
     "test": "jest --coverage",
     "test:webpack5": "WEBPACK5=true jest -c --coverage",
     "dev-example": "webpack serve --config example/webpack.config.js --hot --stats minimal",
-    "build-example": "rm -rf example/dist && webpack --config example/webpack.config.js --env.prod",
-    "build-example-ssr": "rm -rf example/dist-ssr && webpack --config example/webpack.config.js --env.prod --env.ssr && node example/ssr.js",
+    "build-example": "rm -rf example/dist && webpack --config example/webpack.config.js --env prod",
+    "build-example-ssr": "rm -rf example/dist-ssr && webpack --config example/webpack.config.js --env prod --env ssr && node example/ssr.js",
     "lint": "prettier --write --parser typescript \"{src,test}/**/*.{j,t}s\"",
     "prepublishOnly": "tsc && conventional-changelog -p angular -i CHANGELOG.md -s -r 2"
   },
