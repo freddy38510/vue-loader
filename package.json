@@ -83,7 +83,7 @@
     "style-loader": "2.0.0",
     "stylus": "0.59.0",
     "stylus-loader": "4.3.3",
-    "sugarss": "3.0.3",
+    "sugarss": "4.0.1",
     "ts-jest": "29.0.3",
     "ts-loader": "8.4.0",
     "ts-loader-v9": "npm:ts-loader@9.4.1",
