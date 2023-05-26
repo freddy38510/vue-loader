@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import { createI18n } from 'vue-i18n'
 
 import Component from './i18n.vue'
-import * as exports from './i18n.vue'
+import * as _exports from './i18n.vue'
 
 const i18n = createI18n({
   locale: 'de',
@@ -12,7 +12,7 @@ const i18n = createI18n({
 
 if (typeof window !== 'undefined') {
   window.componentModule = Component
-  window.exports = exports
+  window.exports = _exports
 
   const app = createApp(Component).use(i18n)
 

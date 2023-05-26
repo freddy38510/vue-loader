@@ -156,13 +156,13 @@ export async function mockBundleAndRun(
   }
 
   const { window } = dom
-  const { componentModule, exports, instance } = window
+  const { componentModule, exports: _exports, instance } = window
 
   return {
     window,
 
     componentModule,
-    exports,
+    _exports,
     instance,
 
     code,

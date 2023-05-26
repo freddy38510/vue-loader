@@ -8,7 +8,7 @@ test('support chaining with other loaders', async () => {
   const { componentModule } = await mockBundleAndRun({
     entry: 'basic.vue',
     modify: (config) => {
-      config!.module!.rules[0] = {
+      config.module!.rules![0] = {
         test: /\.vue$/,
         use: ['@freddy38510/vue-loader', require.resolve('./mock-loaders/js')],
       }
@@ -22,7 +22,7 @@ test.skip('inherit queries on files', async () => {
   const { componentModule } = await mockBundleAndRun({
     entry: 'basic.vue?change',
     modify: (config) => {
-      config!.module!.rules[0] = {
+      config.module!.rules![0] = {
         test: /\.vue$/,
         use: [
           '@freddy38510/vue-loader',

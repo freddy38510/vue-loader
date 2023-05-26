@@ -1,11 +1,11 @@
 import { mockBundleAndRun } from './utils'
 
 test('named exports', async () => {
-  const { exports } = await mockBundleAndRun({
+  const { _exports } = await mockBundleAndRun({
     entry: 'named-exports.vue',
   })
-  expect(exports.default.name).toBe('named-exports')
-  expect(exports.foo()).toBe(1)
+  expect(_exports.default.name).toBe('named-exports')
+  expect(_exports.foo()).toBe(1)
 })
 
 test('experimental <script setup>', async () => {
@@ -13,18 +13,18 @@ test('experimental <script setup>', async () => {
 })
 
 test('should handle custom resource query', async () => {
-  const { exports } = await mockBundleAndRun({
+  const { _exports } = await mockBundleAndRun({
     entry: 'custom-query.vue',
   })
 
-  expect(exports.default.data().msg).toBe('Hello from Component A!')
+  expect(_exports.default.data().msg).toBe('Hello from Component A!')
 })
 
 test('should support importing external types', async () => {
-  const { exports, window } = await mockBundleAndRun({
+  const { _exports, window } = await mockBundleAndRun({
     entry: 'imported-types.vue',
   })
-  expect(exports.default).toMatchObject({
+  expect(_exports.default).toMatchObject({
     props: {
       msg: {
         type: window.String,

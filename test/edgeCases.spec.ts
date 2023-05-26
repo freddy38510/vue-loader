@@ -31,8 +31,8 @@ test('vue rule with include', async () => {
   const result = await mockBundleAndRun({
     entry: 'basic.vue',
     modify: (config: any) => {
-      const i = config.module.rules.findIndex((r) =>
-        r.test.toString().includes('vue')
+      const i = (config.module.rules as webpack.RuleSetRule[]).findIndex((r) =>
+        r.test?.toString().includes('vue')
       )
       config.module.rules[i] = {
         test: /\.vue$/,
@@ -74,10 +74,10 @@ test('normalize multiple use + options', async () => {
   await bundle({
     entry: 'basic.vue',
     modify: (config: any) => {
-      const i = config.module.rules.findIndex((r) =>
-        r.test.toString().includes('vue')
+      const i = (config.module.rules as webpack.RuleSetRule[]).findIndex((r) =>
+        r.test?.toString().includes('vue')
       )
-      config!.module!.rules[i] = {
+      config.module.rules[i] = {
         test: /\.vue$/,
         use: [
           {
@@ -91,11 +91,11 @@ test('normalize multiple use + options', async () => {
 })
 
 test('should not duplicate css modules value imports', async () => {
-  const { window, exports } = await mockBundleAndRun({
+  const { window, _exports } = await mockBundleAndRun({
     entry: './test/fixtures/duplicate-cssm.js',
     modify: (config: any) => {
-      const i = config.module.rules.findIndex((r) =>
-        r.test.toString().includes('css')
+      const i = (config.module.rules as webpack.RuleSetRule[]).findIndex((r) =>
+        r.test?.toString().includes('css')
       )
       config.module.rules[i] = {
         test: /\.css$/,
@@ -117,8 +117,8 @@ test('should not duplicate css modules value imports', async () => {
   const style = normalizeNewline(styles[1]!.textContent!)
   // value should be injected
   expect(style).toMatch('color: red;')
-  // exports is set as the locals imported from values.css
-  expect(exports.color).toBe('red')
+  // _exports is set as the locals imported from values.css
+  expect(_exports.color).toBe('red')
 })
 
 // #1213
@@ -146,8 +146,8 @@ test('usage with null-loader', async () => {
   await mockBundleAndRun({
     entry: 'basic.vue',
     modify: (config: any) => {
-      const i = config.module.rules.findIndex((r) =>
-        r.test.toString().includes('css')
+      const i = (config.module.rules as webpack.RuleSetRule[]).findIndex((r) =>
+        r.test?.toString().includes('css')
       )
       config.module.rules[i] = {
         test: /\.css$/,

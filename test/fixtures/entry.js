@@ -1,11 +1,11 @@
 import { createApp } from 'vue'
 
 import Component from '~target'
-import * as exports from '~target'
+import * as _exports from '~target'
 
 if (typeof window !== 'undefined') {
   window.componentModule = Component
-  window.exports = exports
+  window.exports = _exports
 
   const app = createApp(Component)
   const container = window.document.createElement('div')
