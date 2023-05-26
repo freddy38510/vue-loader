@@ -4,6 +4,8 @@ import * as qs from 'querystring'
 
 import hash = require('hash-sum')
 
+import { Template } from 'webpack'
+
 import { compiler } from './compiler'
 import type {
   TemplateCompiler,
@@ -309,13 +311,13 @@ export default function loader(
 
   /* Style injection in beforeCreate */
   if (/injectStyles/.test(stylesCode)) {
-    code += webpack.Template.asString([
+    code += Template.asString([
       '\n',
       `const _useSSRContext_ = require('vue').useSSRContext`,
       'const _oldBeforeCreate_ = script.beforeCreate',
       '',
       'function _beforeCreate_() {',
-      webpack.Template.indent([
+      Template.indent([
         'const ssrContext = _useSSRContext_()',
         'injectStyles(ssrContext)',
         `if (typeof _oldBeforeCreate_ === 'function') { _oldBeforeCreate_() }`,
