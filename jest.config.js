@@ -5,10 +5,8 @@ module.exports = {
   testTimeout: 60000,
   testEnvironment: 'node',
   testPathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules/'],
-  globals: {
-    'ts-jest': {
-      diagnostics: false,
-    },
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', { diagnostics: false }],
   },
   moduleNameMapper: process.env.WEBPACK4
     ? {
