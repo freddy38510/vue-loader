@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [17.2.0](https://github.com/freddy38510/vue-loader/compare/v17.1.1...v17.2.0) (2023-05-28)
+
+
+### Features
+
+* support 3.3 imported types hmr ([be9af08](https://github.com/freddy38510/vue-loader/commit/be9af08ec1edfb71d2536ca63373c29c993dc1d0))
+
+
+### Bug Fixes
+
+* add missing import statement removed while cherry picking ([ec3c968](https://github.com/freddy38510/vue-loader/commit/ec3c96864736939d955518b1b07ecb9525dfed18))
+* do not throw when `Rule.layer` ([#2000](https://github.com/freddy38510/vue-loader/issues/2000)) ([477912c](https://github.com/freddy38510/vue-loader/commit/477912ce383b89dfba632dc5d8364fb2db9e7e0d))
+* keep build stable when run in a different path ([#2040](https://github.com/freddy38510/vue-loader/issues/2040)) ([19a3f95](https://github.com/freddy38510/vue-loader/commit/19a3f95900bf6e3646c44cc4eb6385f58b4a90b6))
+* reference project compiler, fixes [#2031](https://github.com/freddy38510/vue-loader/issues/2031) ([#2038](https://github.com/freddy38510/vue-loader/issues/2038)) ([260d53d](https://github.com/freddy38510/vue-loader/commit/260d53db1b29b1a8f794bf96cd3dad555e1b2ba4))
+* support propsDestructure and defineModel options ([55f5cdc](https://github.com/freddy38510/vue-loader/commit/55f5cdc69584ba65ebc601b604741c7f294c245c))
+
 ### [17.1.1](https://github.com/freddy38510/vue-loader/compare/v17.1.0...v17.1.1) (2022-11-19)
 
 
