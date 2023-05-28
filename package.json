@@ -91,7 +91,7 @@
     "vue": "^3.3.0",
     "vue-i18n": "^9.1.7",
     "webpack": "^5.79.0",
-    "webpack-cli": "^3.3.12",
+    "webpack-cli": "^4.0.0",
     "webpack-dev-server": "^4.0.0",
     "webpack-merge": "^5.1.4",
     "webpack4": "npm:webpack@^4.46.0",
