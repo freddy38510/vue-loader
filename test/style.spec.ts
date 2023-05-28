@@ -1,4 +1,9 @@
-import { mockBundleAndRun, genId, normalizeNewline } from './utils'
+import {
+  mockBundleAndRun,
+  genId,
+  normalizeNewline,
+  escapeCSSClassName,
+} from './utils'
 
 test('scoped style', async () => {
   const { window, instance, componentModule } = await mockBundleAndRun({
@@ -189,8 +194,10 @@ test('CSS Modules Extend', async () => {
   })
 
   expect(instance.$el.className).toBe(instance.$style.red)
-  const style = window.document.querySelectorAll('style')![1]!.textContent
-  expect(style).toContain(`.${instance.$style.red} {\n  color: #FF0000;\n}`)
+  const style = window.document.querySelectorAll('style')![1]!.textContent!
+  expect(style).toContain(
+    `.${escapeCSSClassName(instance.$style.red)} {\n  color: #FF0000;\n}`
+  )
 })
 
 test.todo('experimental <style vars>')

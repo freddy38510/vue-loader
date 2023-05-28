@@ -180,4 +180,8 @@ export function genId(fixtureName: string): string {
   return hash(path.join('test', 'fixtures', fixtureName).replace(/\\/g, '/'))
 }
 
+export function escapeCSSClassName(style) {
+  return style.replace(/[^\w-]/g, '\\$&')
+}
+
 export { mfs }
