@@ -74,6 +74,7 @@
     "mini-css-extract-plugin": "^1.6.2",
     "normalize-newline": "^4.0.0",
     "null-loader": "^4.0.1",
+    "postcss": "^8.4.24",
     "postcss-loader": "^7.0.0",
     "prettier": "^2.1.1",
     "pug": "^3.0.0",
