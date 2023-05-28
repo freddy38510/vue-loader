@@ -97,5 +97,8 @@
     "webpack-merge": "^5.1.4",
     "webpack4": "npm:webpack@^4.46.0",
     "yorkie": "^2.0.0"
+  },
+  "resolutions": {
+    "glob-parent": "^5.1.2"
   }
 }
