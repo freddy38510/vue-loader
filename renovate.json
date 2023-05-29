@@ -10,7 +10,8 @@
         "@types/webpack",
         "webpack-cli",
         "html-webpack-plugin",
-        "stylus-loader"
+        "stylus-loader",
+        "postcss-loader"
       ],
       "allowedVersions": "<5"
     },
