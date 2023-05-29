@@ -99,6 +99,6 @@
     "yorkie": "^2.0.0"
   },
   "resolutions": {
-    "glob-parent": "^5.1.2"
+    "glob-parent": "^6.0.0"
   }
 }
