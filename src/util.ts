@@ -1,11 +1,12 @@
 import type { Compiler, LoaderContext } from 'webpack'
+import qs from 'querystring'
 import type { SFCDescriptor, CompilerOptions } from 'vue/compiler-sfc'
 import type { VueLoaderOptions } from '.'
 import * as path from 'path'
 
 export function needHMR(
   vueLoaderOptions: VueLoaderOptions,
-  compilerOptions: Compiler['options']
+  compilerOptions: Compiler['options'],
 ) {
   const isServer =
     vueLoaderOptions.isServerBuild ?? compilerOptions.target === 'node'
@@ -17,7 +18,7 @@ export function needHMR(
 
 export function resolveTemplateTSOptions(
   descriptor: SFCDescriptor,
-  options: VueLoaderOptions
+  options: VueLoaderOptions,
 ): CompilerOptions | null {
   if (options.enableTsInTemplate === false) return null
 
@@ -59,7 +60,7 @@ const specialValues = {
 function parseQuery(query: string) {
   if (query.substr(0, 1) !== '?') {
     throw new Error(
-      "A valid query string passed to parseQuery should begin with '?'"
+      "A valid query string passed to parseQuery should begin with '?'",
     )
   }
 
@@ -126,7 +127,7 @@ function isRelativePath(str: string) {
 
 export function stringifyRequest(
   loaderContext: LoaderContext<VueLoaderOptions>,
-  request: string
+  request: string,
 ) {
   const splitted = request.split('!')
   const context =
@@ -160,6 +161,39 @@ export function stringifyRequest(
 
         return singlePath.replace(/\\/g, '/') + query
       })
-      .join('!')
+      .join('!'),
   )
+}
+
+export function genMatchResource(
+  context: LoaderContext<VueLoaderOptions>,
+  resourcePath: string,
+  resourceQuery?: string,
+  lang?: string,
+) {
+  resourceQuery = resourceQuery || ''
+
+  const loaders: string[] = []
+  const parsedQuery = qs.parse(resourceQuery.slice(1))
+
+  // process non-external resources
+  if ('vue' in parsedQuery && !('external' in parsedQuery)) {
+    const currentRequest = context.loaders
+      .slice(context.loaderIndex)
+      .map((obj) => obj.request)
+    loaders.push(...currentRequest)
+  }
+  const loaderString = loaders.join('!')
+
+  return `${resourcePath}${lang ? `.${lang}` : ''}${resourceQuery}!=!${
+    loaderString ? `${loaderString}!` : ''
+  }${resourcePath}${resourceQuery}`
+}
+
+export const testWebpack5 = (compiler?: Compiler) => {
+  if (!compiler) {
+    return false
+  }
+  const webpackVersion = compiler?.webpack?.version
+  return Boolean(webpackVersion && Number(webpackVersion.split('.')[0]) > 4)
 }

@@ -2,6 +2,7 @@ import {
   mockBundleAndRun,
   genId,
   normalizeNewline,
+  DEFAULT_VUE_USE,
   escapeCSSClassName,
 } from './utils'
 
@@ -27,7 +28,7 @@ test('scoped style', async () => {
   expect(instance.$el.children[2].className).toBe('test')
 
   const style = normalizeNewline(
-    window.document.querySelector('style')!.textContent!
+    window.document.querySelector('style')!.textContent!,
   )
 
   expect(style).toContain(`.test[${scopeId}] {\n  color: yellow;\n}`)
@@ -37,22 +38,22 @@ test('scoped style', async () => {
   // note: vue 3 uses short ids for keyframes
   // see https://github.com/vuejs/vue-next/commit/5f271515cf17e541a2a085d23854dac7e45e074e
   expect(style).toContain(
-    `.anim[${scopeId}] {\n  animation: color-${shortId} 5s infinite, other 5s;`
+    `.anim[${scopeId}] {\n  animation: color-${shortId} 5s infinite, other 5s;`,
   )
   expect(style).toContain(
-    `.anim-2[${scopeId}] {\n  animation-name: color-${shortId}`
+    `.anim-2[${scopeId}] {\n  animation-name: color-${shortId}`,
   )
   expect(style).toContain(
-    `.anim-3[${scopeId}] {\n  animation: 5s color-${shortId} infinite, 5s other;`
+    `.anim-3[${scopeId}] {\n  animation: 5s color-${shortId} infinite, 5s other;`,
   )
   expect(style).toContain(`@keyframes color-${shortId} {`)
   expect(style).toContain(`@-webkit-keyframes color-${shortId} {`)
 
   expect(style).toContain(
-    `.anim-multiple[${scopeId}] {\n  animation: color-${shortId} 5s infinite,opacity-${shortId} 2s;`
+    `.anim-multiple[${scopeId}] {\n  animation: color-${shortId} 5s infinite,opacity-${shortId} 2s;`,
   )
   expect(style).toContain(
-    `.anim-multiple-2[${scopeId}] {\n  animation-name: color-${shortId},opacity-${shortId};`
+    `.anim-multiple-2[${scopeId}] {\n  animation-name: color-${shortId},opacity-${shortId};`,
   )
   expect(style).toContain(`@keyframes opacity-${shortId} {`)
   expect(style).toContain(`@-webkit-keyframes opacity-${shortId} {`)
@@ -86,7 +87,7 @@ test('postcss', async () => {
 
   const id = 'data-v-' + genId('postcss.vue')
   const style = normalizeNewline(
-    window.document.querySelector('style')!.textContent!
+    window.document.querySelector('style')!.textContent!,
   )
   expect(style).toContain(`h1[${id}] {\n  color: red;\n  font-size: 14px\n}`)
 })
@@ -94,7 +95,7 @@ test('postcss', async () => {
 test('CSS Modules', async () => {
   const testWithIdent = async (
     localIdentName: string | undefined,
-    regexToMatch: RegExp
+    regexToMatch: RegExp,
   ) => {
     const baseLoaders = [
       'style-loader',
@@ -114,7 +115,7 @@ test('CSS Modules', async () => {
         config!.module!.rules = [
           {
             test: /\.vue$/,
-            loader: '@freddy38510/vue-loader',
+            use: [DEFAULT_VUE_USE],
           },
           {
             test: /\.css$/,
@@ -162,7 +163,7 @@ test('CSS Modules', async () => {
   // custom ident
   await testWithIdent(
     '[path][name]---[local]---[hash:base64:5]',
-    /css-modules---red---\w{5}/
+    /css-modules---red---\w{5}/,
   )
 })
 
@@ -183,7 +184,7 @@ test('CSS Modules Extend', async () => {
       config!.module!.rules = [
         {
           test: /\.vue$/,
-          loader: '@freddy38510/vue-loader',
+          use: [DEFAULT_VUE_USE],
         },
         {
           test: /\.css$/,
@@ -196,7 +197,7 @@ test('CSS Modules Extend', async () => {
   expect(instance.$el.className).toBe(instance.$style.red)
   const style = window.document.querySelectorAll('style')![1]!.textContent!
   expect(style).toContain(
-    `.${escapeCSSClassName(instance.$style.red)} {\n  color: #FF0000;\n}`
+    `.${escapeCSSClassName(instance.$style.red)} {\n  color: #FF0000;\n}`,
   )
 })
 

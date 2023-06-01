@@ -1,5 +1,5 @@
 import * as path from 'path'
-import { mockBundleAndRun, normalizeNewline } from './utils'
+import { DEFAULT_VUE_USE, mockBundleAndRun, normalizeNewline } from './utils'
 
 test('apply babel transformations to expressions in template', async () => {
   const { instance } = await mockBundleAndRun({
@@ -54,7 +54,7 @@ test('transform relative URLs and respects resolve alias', async () => {
   expect(instance.$el.children[2].src).toBe('logo.cab72b.png')
 
   const style = normalizeNewline(
-    window.document.querySelector('style')!.textContent!
+    window.document.querySelector('style')!.textContent!,
   )
   expect(style).toContain('html { background-image: url(logo.cab72b.png);\n}')
   expect(style).toContain('body { background-image: url(logo.cab72b.png);\n}')
@@ -111,7 +111,7 @@ test('should allow process custom file', async () => {
       rules: [
         {
           test: /\.svg$/,
-          loader: '@freddy38510/vue-loader',
+          use: [DEFAULT_VUE_USE],
         },
       ],
     },

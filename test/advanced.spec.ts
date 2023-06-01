@@ -1,6 +1,12 @@
 import { SourceMapConsumer } from 'source-map'
 import { fs as mfs } from 'memfs'
-import { bundle, mockBundleAndRun, normalizeNewline, genId } from './utils'
+import {
+  bundle,
+  mockBundleAndRun,
+  normalizeNewline,
+  genId,
+  DEFAULT_VUE_USE,
+} from './utils'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
@@ -10,7 +16,7 @@ test('support chaining with other loaders', async () => {
     modify: (config) => {
       config.module!.rules![0] = {
         test: /\.vue$/,
-        use: ['@freddy38510/vue-loader', require.resolve('./mock-loaders/js')],
+        use: [DEFAULT_VUE_USE, require.resolve('./mock-loaders/js')],
       }
     },
   })
@@ -24,10 +30,7 @@ test.skip('inherit queries on files', async () => {
     modify: (config) => {
       config.module!.rules![0] = {
         test: /\.vue$/,
-        use: [
-          '@freddy38510/vue-loader',
-          require.resolve('./mock-loaders/query'),
-        ],
+        use: [DEFAULT_VUE_USE, require.resolve('./mock-loaders/query')],
       }
     },
   })
@@ -95,7 +98,7 @@ test('extract CSS', async () => {
       config.module.rules = [
         {
           test: /\.vue$/,
-          use: '@freddy38510/vue-loader',
+          use: [DEFAULT_VUE_USE],
         },
         {
           test: /\.css$/,
@@ -129,7 +132,7 @@ test('extract CSS with code spliting', async () => {
       config.module.rules = [
         {
           test: /\.vue$/,
-          use: '@freddy38510/vue-loader',
+          use: [DEFAULT_VUE_USE],
         },
         {
           test: /\.css$/,
@@ -156,7 +159,10 @@ test('support rules with oneOf', async () => {
       entry,
       modify: (config: any) => {
         config!.module!.rules = [
-          { test: /\.vue$/, loader: '@freddy38510/vue-loader' },
+          {
+            test: /\.vue$/,
+            use: [DEFAULT_VUE_USE],
+          },
           {
             test: /\.css$/,
             use: 'style-loader',
@@ -186,7 +192,7 @@ test('support rules with oneOf', async () => {
 
   const { window: window1 } = await run('basic.vue')
   let style = normalizeNewline(
-    window1.document.querySelector('style')!.textContent!
+    window1.document.querySelector('style')!.textContent!,
   )
   expect(style).toContain('comp-a h2 {\n  color: #f00;\n}')
 

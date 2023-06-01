@@ -1,6 +1,12 @@
 import * as path from 'path'
 import webpack from 'webpack'
-import { mfs, bundle, mockBundleAndRun, normalizeNewline } from './utils'
+import {
+  mfs,
+  bundle,
+  mockBundleAndRun,
+  normalizeNewline,
+  DEFAULT_VUE_USE,
+} from './utils'
 
 // @ts-ignore
 function assertComponent({
@@ -21,7 +27,7 @@ function assertComponent({
   expect(componentModule.data().msg).toContain(expectedMsg)
 
   const style = normalizeNewline(
-    window.document.querySelector('style')!.textContent!
+    window.document.querySelector('style')!.textContent!,
   )
   expect(style).toContain('comp-a h2 {\n  color: #f00;\n}')
 }
@@ -31,13 +37,13 @@ test('vue rule with include', async () => {
   const result = await mockBundleAndRun({
     entry: 'basic.vue',
     modify: (config: any) => {
-      const i = (config.module.rules as webpack.RuleSetRule[]).findIndex((r) =>
-        r.test?.toString().includes('vue')
+      const i = (config.module.rules as webpack.RuleSetRule[]).findIndex(
+        (r) => r.test?.toString().includes('vue'),
       )
       config.module.rules[i] = {
         test: /\.vue$/,
         include: /fixtures/,
-        loader: '@freddy38510/vue-loader',
+        use: [DEFAULT_VUE_USE],
       }
     },
   })
@@ -52,7 +58,7 @@ test('test-less oneOf rules', async () => {
       config!.module!.rules = [
         {
           test: /\.vue$/,
-          loader: '@freddy38510/vue-loader',
+          use: [DEFAULT_VUE_USE],
         },
         {
           oneOf: [
@@ -74,17 +80,12 @@ test('normalize multiple use + options', async () => {
   await bundle({
     entry: 'basic.vue',
     modify: (config: any) => {
-      const i = (config.module.rules as webpack.RuleSetRule[]).findIndex((r) =>
-        r.test?.toString().includes('vue')
+      const i = (config.module.rules as webpack.RuleSetRule[]).findIndex(
+        (r) => r.test?.toString().includes('vue'),
       )
       config.module.rules[i] = {
         test: /\.vue$/,
-        use: [
-          {
-            loader: '@freddy38510/vue-loader',
-            options: {},
-          },
-        ],
+        use: [DEFAULT_VUE_USE],
       }
     },
   })
@@ -94,8 +95,8 @@ test('should not duplicate css modules value imports', async () => {
   const { window, _exports } = await mockBundleAndRun({
     entry: './test/fixtures/duplicate-cssm.js',
     modify: (config: any) => {
-      const i = (config.module.rules as webpack.RuleSetRule[]).findIndex((r) =>
-        r.test?.toString().includes('css')
+      const i = (config.module.rules as webpack.RuleSetRule[]).findIndex(
+        (r) => r.test?.toString().includes('css'),
       )
       config.module.rules[i] = {
         test: /\.css$/,
@@ -146,8 +147,8 @@ test('usage with null-loader', async () => {
   await mockBundleAndRun({
     entry: 'basic.vue',
     modify: (config: any) => {
-      const i = (config.module.rules as webpack.RuleSetRule[]).findIndex((r) =>
-        r.test?.toString().includes('css')
+      const i = (config.module.rules as webpack.RuleSetRule[]).findIndex(
+        (r) => r.test?.toString().includes('css'),
       )
       config.module.rules[i] = {
         test: /\.css$/,

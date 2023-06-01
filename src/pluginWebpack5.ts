@@ -1,6 +1,6 @@
 import * as qs from 'querystring'
 import type { VueLoaderOptions } from './'
-import type { RuleSetRule, Compiler } from 'webpack'
+import type { RuleSetRule, Compiler, RuleSetUse } from 'webpack'
 import { needHMR } from './util'
 import { clientCache, typeDepToSFCMap } from './resolveScript'
 import { compiler as vueCompiler } from './compiler'
@@ -21,7 +21,7 @@ try {
   const ObjectMatcherRulePlugin = require('webpack/lib/rules/ObjectMatcherRulePlugin')
   objectMatcherRulePlugins.push(
     new ObjectMatcherRulePlugin('assert', 'assertions'),
-    new ObjectMatcherRulePlugin('descriptionData')
+    new ObjectMatcherRulePlugin('descriptionData'),
   )
 } catch (e) {
   const DescriptionDataMatcherRulePlugin = require('webpack/lib/rules/DescriptionDataMatcherRulePlugin')
@@ -38,7 +38,7 @@ type RuleSetCompiler = {
     compileRule(
       path: string,
       rawRule: RawRule,
-      refs: Map<string, any>
+      refs: Map<string, any>,
     ): CompiledRule
   }
 }
@@ -133,7 +133,7 @@ class VueLoaderPlugin {
       if (vueRules.length > 0) {
         if (rawRule.oneOf) {
           throw new Error(
-            `[VueLoaderPlugin Error] vue-loader currently does not support vue rules with oneOf.`
+            `[VueLoaderPlugin Error] vue-loader currently does not support vue rules with oneOf.`,
           )
         }
         rawVueRule = rawRule
@@ -143,11 +143,11 @@ class VueLoaderPlugin {
     if (!vueRules.length) {
       throw new Error(
         `[VueLoaderPlugin Error] No matching rule for .vue files found.\n` +
-          `Make sure there is at least one root-level rule that matches .vue or .vue.html files.`
+          `Make sure there is at least one root-level rule that matches .vue or .vue.html files.`,
       )
     }
 
-    // get the normlized "use" for vue files
+    // get the normalized "use" for vue files
     const vueUse = vueRules
       .filter((rule) => rule.type === 'use')
       .map((rule) => rule.value)
@@ -156,14 +156,14 @@ class VueLoaderPlugin {
     const vueLoaderUseIndex = vueUse.findIndex((u) => {
       // FIXME: this code logic is incorrect when project paths starts with `vue-loader-something`
       return /^@freddy38510(\/|\\)vue-loader|(\/|\\|@)@freddy38510(\/|\\)vue-loader/.test(
-        u.loader
+        u.loader,
       )
     })
 
     if (vueLoaderUseIndex < 0) {
       throw new Error(
         `[VueLoaderPlugin Error] No matching use for vue-loader is found.\n` +
-          `Make sure the rule matching .vue files include vue-loader in its use.`
+          `Make sure the rule matching .vue files include vue-loader in its use.`,
       )
     }
 
@@ -173,6 +173,8 @@ class VueLoaderPlugin {
     const vueLoaderUse = vueUse[vueLoaderUseIndex]
     const vueLoaderOptions = (vueLoaderUse.options =
       vueLoaderUse.options || {}) as VueLoaderOptions
+    const enableInlineMatchResource =
+      vueLoaderOptions.experimentalInlineMatchResource
 
     // for each user rule (except the vue rule), create a cloned rule
     // that targets the corresponding language blocks in *.vue files.
@@ -180,7 +182,7 @@ class VueLoaderPlugin {
     const clonedRules = rules
       .filter((r) => r !== rawVueRule)
       .map((rawRule) =>
-        cloneRule(rawRule, refs, langBlockRuleCheck, langBlockRuleResource)
+        cloneRule(rawRule, refs, langBlockRuleCheck, langBlockRuleResource),
       )
 
     // fix conflict with config.loader and config.options when using config.use
@@ -209,7 +211,7 @@ class VueLoaderPlugin {
       .filter(
         (r) =>
           r !== rawVueRule &&
-          (match(r, 'test.js').length > 0 || match(r, 'test.ts').length > 0)
+          (match(r, 'test.js').length > 0 || match(r, 'test.ts').length > 0),
       )
       .map((rawRule) => cloneRule(rawRule, refs, jsRuleCheck, jsRuleResource))
 
@@ -224,16 +226,53 @@ class VueLoaderPlugin {
         const parsed = qs.parse(query.slice(1))
         return parsed.vue != null
       },
+      options: vueLoaderOptions,
     }
 
     // replace original rules
-    compiler.options.module!.rules = [
-      pitcher,
-      ...jsRulesForRenderFn,
-      templateCompilerRule,
-      ...clonedRules,
-      ...rules,
-    ]
+    if (enableInlineMatchResource) {
+      // Match rules using `vue-loader`
+      const vueLoaderRules = rules.filter((rule) => {
+        const matchOnce = (use?: RuleSetUse) => {
+          let loaderString = ''
+
+          if (!use) {
+            return loaderString
+          }
+
+          if (typeof use === 'string') {
+            loaderString = use
+          } else if (Array.isArray(use)) {
+            loaderString = matchOnce(use[0])
+          } else if (typeof use === 'object' && use.loader) {
+            loaderString = use.loader
+          }
+          return loaderString
+        }
+
+        const loader = rule.loader || matchOnce(rule.use)
+        return (
+          loader === require('../package.json').name ||
+          loader.startsWith(require.resolve('./index'))
+        )
+      })
+
+      compiler.options.module!.rules = [
+        pitcher,
+        ...rules.filter((rule) => !vueLoaderRules.includes(rule)),
+        templateCompilerRule,
+        ...clonedRules,
+        ...vueLoaderRules,
+      ]
+    } else {
+      compiler.options.module!.rules = [
+        pitcher,
+        ...jsRulesForRenderFn,
+        templateCompilerRule,
+        ...clonedRules,
+        ...rules,
+      ]
+    }
 
     // 3.3 HMR support for imported types
     if (
@@ -294,7 +333,7 @@ function match(rule: RawRule, fakeFile: string): Effect[] {
 
 const langBlockRuleCheck = (
   query: qs.ParsedUrlQuery,
-  rule: CompiledRule
+  rule: CompiledRule,
 ): boolean => {
   return (
     query.type === 'custom' || !rule.conditions.length || query.lang != null
@@ -303,7 +342,7 @@ const langBlockRuleCheck = (
 
 const langBlockRuleResource = (
   query: qs.ParsedUrlQuery,
-  resource: string
+  resource: string,
 ): string => `${resource}.${query.lang}`
 
 const jsRuleCheck = (query: qs.ParsedUrlQuery): boolean => {
@@ -319,12 +358,12 @@ function cloneRule(
   rawRule: RawRule,
   refs: Map<string, any>,
   ruleCheck: (query: qs.ParsedUrlQuery, rule: CompiledRule) => boolean,
-  ruleResource: (query: qs.ParsedUrlQuery, resource: string) => string
+  ruleResource: (query: qs.ParsedUrlQuery, resource: string) => string,
 ): RawRule {
   const compiledRule = ruleSetCompiler.compileRule(
     `clonedRuleSet-${++uid}`,
     rawRule,
-    refs
+    refs,
   )
 
   // do not process rule with enforce
@@ -374,13 +413,13 @@ function cloneRule(
 
   if (rawRule.rules) {
     res.rules = rawRule.rules.map((rule) =>
-      cloneRule(rule, refs, ruleCheck, ruleResource)
+      cloneRule(rule, refs, ruleCheck, ruleResource),
     )
   }
 
   if (rawRule.oneOf) {
     res.oneOf = rawRule.oneOf.map((rule) =>
-      cloneRule(rule, refs, ruleCheck, ruleResource)
+      cloneRule(rule, refs, ruleCheck, ruleResource),
     )
   }
 
