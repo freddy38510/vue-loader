@@ -66,7 +66,7 @@ type BundleOptions = webpack.Configuration & {
 
 export function bundle(
   options: BundleOptions,
-  wontThrowError?: boolean
+  wontThrowError?: boolean,
 ): Promise<{
   code: string
   stats: webpack.Stats
@@ -77,7 +77,7 @@ export function bundle(
     const vueOptions = options.vue
     delete config.vue
     const vueIndex = config.module.rules!.findIndex(
-      (r: any) => r.test instanceof RegExp && r.test.test('.vue')
+      (r: any) => r.test instanceof RegExp && r.test.test('.vue'),
     )
     const vueRule = config.module.rules![vueIndex]
     config.module.rules![vueIndex] = Object.assign({}, vueRule, {
@@ -106,8 +106,9 @@ export function bundle(
   webpackCompiler.outputFileSystem = Object.assign(
     {
       join: path.join.bind(path),
+      mkdirp: (path, cb) => mfs.mkdir.call(mfs, path, { recursive: true }, cb),
     },
-    mfs
+    mfs,
   )
 
   return new Promise((resolve, reject) => {
@@ -137,7 +138,7 @@ export function bundle(
 
 export async function mockBundleAndRun(
   options: BundleOptions,
-  wontThrowError?: boolean
+  wontThrowError?: boolean,
 ) {
   const { code, stats } = await bundle(options, wontThrowError)
 
@@ -146,7 +147,7 @@ export async function mockBundleAndRun(
     {
       runScripts: 'outside-only',
       virtualConsole: new VirtualConsole(),
-    }
+    },
   )
   try {
     dom.window.eval(code)
