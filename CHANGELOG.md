@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [17.2.1](https://github.com/freddy38510/vue-loader/compare/v17.2.0...v17.2.1) (2023-09-03)
+
+
+### Bug Fixes
+
+* **loader:** support Windows path separator ([ac02f49](https://github.com/freddy38510/vue-loader/commit/ac02f49cd74fdbb2bf29e1d7630b8fbd008fae61))
+
 ## [17.2.0](https://github.com/freddy38510/vue-loader/compare/v17.1.1...v17.2.0) (2023-05-28)
 
 
