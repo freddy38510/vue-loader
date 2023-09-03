@@ -76,7 +76,7 @@
     "null-loader": "^4.0.1",
     "postcss": "^8.4.24",
     "postcss-loader": "^4.0.4",
-    "prettier": "^2.1.1",
+    "prettier": "^3.0.0",
     "pug": "^3.0.0",
     "pug-plain-loader": "^1.0.0",
     "source-map": "^0.7.0",
