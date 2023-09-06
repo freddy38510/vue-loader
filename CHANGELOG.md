@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [17.3.0](https://github.com/freddy38510/vue-loader/compare/v17.2.1...v17.3.0) (2023-09-06)
+
+
+### Features
+
+* support experimental inline match resource ([#2046](https://github.com/freddy38510/vue-loader/issues/2046)) ([cd07b1c](https://github.com/freddy38510/vue-loader/commit/cd07b1cba9dd4edd07f178fb1bb03917d901e9a8))
+
+
+### Bug Fixes
+
+* properly close the watcher after tests ([c1e6267](https://github.com/freddy38510/vue-loader/commit/c1e62679a1f4f8c87dec4197f509b09829495a25))
+* windows path for `experiments.css` ([#2049](https://github.com/freddy38510/vue-loader/issues/2049)) ([56bc93f](https://github.com/freddy38510/vue-loader/commit/56bc93fabeb6dcb6b7ebc9cbb900d586f1aff568))
+
 ## [17.2.1](https://github.com/freddy38510/vue-loader/compare/v17.2.0...v17.2.1) (2023-09-03)
 
 
