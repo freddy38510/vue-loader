@@ -60,7 +60,7 @@
     "@types/jest": "^29.5.0",
     "@types/jsdom": "^21.0.0",
     "@types/mini-css-extract-plugin": "^1.0.0",
-    "@types/webpack-merge": "^4.1.5",
+    "@types/webpack-merge": "^5.0.0",
     "babel-loader": "^8.1.0",
     "cache-loader": "^4.1.0",
     "commit-and-tag-version": "^11.2.1",
