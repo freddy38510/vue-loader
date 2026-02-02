@@ -58,7 +58,7 @@
     "@types/estree": "^1.0.0",
     "@types/hash-sum": "^1.0.0",
     "@types/jest": "^29.5.0",
-    "@types/jsdom": "^21.0.0",
+    "@types/jsdom": "^27.0.0",
     "@types/mini-css-extract-plugin": "^1.0.0",
     "@types/webpack-merge": "^4.1.5",
     "babel-loader": "^8.1.0",
