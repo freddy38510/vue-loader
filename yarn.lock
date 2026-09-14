@@ -6698,12 +6698,10 @@ node-releases@^2.0.13:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.13.tgz#d5ed1627c23e3461e819b02e57b75e4899b1c81d"
   integrity sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==
 
-normalize-newline@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/normalize-newline/-/normalize-newline-4.1.0.tgz#47576ac687846b67bf1c163e938f1f00a8bacfcb"
-  integrity sha512-ff4jKqMI8Xl50/4Mms/9jPobzAV/UK+kXG2XJ/7AqOmxIx8mqfqTIHYxuAnEgJ2AQeBbLnlbmZ5+38Y9A0w/YA==
-  dependencies:
-    replace-buffer "^1.2.1"
+normalize-newline@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/normalize-newline/-/normalize-newline-5.0.0.tgz#27f7c3589621678efdf6033f1754727ccdbe8308"
+  integrity sha512-pOL2BbzV4kuopIEK91m7lfn3GISx+yT0N4Nq7jH4YzNMXNkpS7d7WYW11EfH1k9U1YZ7yxJoGfBLXFHc5v2uPQ==
 
 normalize-package-data@^2.3.2, normalize-package-data@^2.5.0:
   version "2.5.0"
@@ -7744,11 +7742,6 @@ repeat-string@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
   integrity sha512-PV0dzCYDNfRi1jCDbJzpW7jNNDRuCOG/jI5ctQcGKt/clZD+YcPS3yIlWuTJMmESC8aevCFmWJy5wjAFgNqN6w==
-
-replace-buffer@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/replace-buffer/-/replace-buffer-1.2.1.tgz#6c188c61445ba91569284b17b8fa119f04a07eb0"
-  integrity sha512-ly3OKwKu+3T55DjP5PjIMzxgz9lFx6dQnBmAIxryZyRKl8f22juy12ShOyuq8WrQE5UlFOseZgQZDua0iF9DHw==
 
 require-directory@^2.1.1:
   version "2.1.1"
