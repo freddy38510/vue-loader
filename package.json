@@ -85,7 +85,7 @@
     "style-loader": "^2.0.0",
     "stylus": "^0.60.0",
     "stylus-loader": "^4.1.1",
-    "sugarss": "^4.0.0",
+    "sugarss": "^5.0.0",
     "ts-jest": "^29.1.0",
     "ts-loader": "^8.0.6",
     "ts-loader-v9": "npm:ts-loader@^9.2.4",
